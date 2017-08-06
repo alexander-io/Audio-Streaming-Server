@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>stream</title>
+    <script src="/socket.io/socket.io.js "></script>
+    <script src="/js/socket.io-stream.js"></script>
+    <script src="jq.js "></script>
+</head>
+
+<body>
+
+    <h1 style="text-align:center;">audio stream</h1>
+
+    <audio id="audio" controls>
+      <source src="" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+  <br>
+
+
+    <script>
+    var socket = io('http://localhost:' + window.location.port);
+    var audio = document.getElementById('audio');
+
+    // console.log("hoi");
+
+    // listen for start event from server
+    socket.on('start', function (data) {
+        console.log("start event emitted from server");
+        console.log('data from server start event :', data);
+
+        // emit stream event to let server know that we're ready to start receiving data
+        socket.emit('stream', { my: 'stream' });
+
+        /* listen for audio-stream event to be emitted from server
+         * the server will send two parameters with this event...
+         * @param stream, the stream that will contain the audio data and be written to by the server (the server populates the stream by reading from a file)
+         * @param data, arbitrary data that the server sends, in our case it's the title of the file that we're streaming data from
+         */
+        ss(socket).on('audio-stream', function(stream, data) {
+            parts = [];
+            console.log("DATA -->> ")
+
+            /* a data event is emitted for each chunk of data that's sent by the server
+             *
+             *
+             */
+            stream.on('data', (chunk) => {
+                console.log(chunk); // log the data
+                parts.push(chunk); // append the data to the array
+                audio.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
+            });
+
+            // finally
+            // stream.on('end', function () {
+            //     audio.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
+            //     // audio.play(); // auto play stream
+            // });
+        });
+    });
+    </script>
+</body>
+</html>
