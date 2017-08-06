@@ -6,24 +6,46 @@
     <title>stream</title>
     <script src="/socket.io/socket.io.js "></script>
     <script src="/js/socket.io-stream.js"></script>
-    <!-- <script src="jq.js "></script> -->
     <link rel="stylesheet" href="materialize.min.css">
     <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave+Display" rel="stylesheet">
 </head>
 
 <body>
     <style media="screen">
-      body, h1 {
+      body {
         font-family: 'Sedgwick Ave Display', cursive;
+        background-color: #212121;
+        color: white;
+      }
+
+    </style>
+    <h1 style="text-align:center;">lofi stream</h1>
+
+    <div class="" id="outer">
+      <div class="" id="inner">
+
+        <audio id="audio" controls>
+          <source src="" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+      </div>
+    </div>
+    <style media="screen">
+      #inner{
+        display:table;
+        margin : 0 auto;
       }
     </style>
-    <h1 style="text-align:center;">audio stream</h1>
 
-    <audio id="audio" controls>
-      <source src="" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-  <br>
+    <!-- <div class="section">
+      <div class="container">
+        <div class="row" style="padding-left:25%;padding-right:25%;">
+          <div class="col s6" >
+          </div>
+        </div>
+      </div>
+    </div> -->
+
 
 
     <script>
