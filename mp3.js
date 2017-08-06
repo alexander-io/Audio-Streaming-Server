@@ -1,4 +1,4 @@
-var express = require('express'), fs = require('fs');
+var express = require('express'), fs = require('fs'), path = require('path')
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -15,6 +15,22 @@ server.listen(8000);
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/html/indexmp3.html');
 });
+
+app.get('/materialize.min.css', function(req, res) {
+  res.sendFile(path.join(__dirname + '/' + 'node_modules/materialize-css/dist/css/materialize.min.css'))
+})
+
+app.get('/materialize.js', function(req, res) {
+  res.sendFile(path.join(__dirname + '/' + 'node_modules/materialize-css/dist/js/materialize.js'))
+})
+
+app.get('/fonts/roboto/Roboto-Regular.woff2', function(req, res) {
+  res.sendFile(path.join(__dirname + '/' + 'node_modules/materialize-css/dist/fonts/roboto/Roboto-Regular.woff2'))
+})
+
+app.get('/fonts/roboto/Roboto-Regular.woff', function(req, res) {
+  res.sendFile(path.join(__dirname + '/' + 'node_modules/materialize-css/dist/fonts/roboto/Roboto-Regular.woff'))
+})
 
 /*
  * the client will emit the 'connection' event on the io() function call, the call looks like this :
