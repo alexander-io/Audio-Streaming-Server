@@ -4,6 +4,14 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var socket_stream = require('socket.io-stream');
 
+
+/*
+ * https://stackoverflow.com/questions/21491091/splitting-an-audio-mp3-file
+ * this is a resource for splitting up mp3 files, ffmpeg comes packaged nicely as an npm module
+ *
+ */
+
+
 // var filename = __dirname + '/penningen.mp3' ;
 var filename = __dirname + '/music/lofi.mp3' ;
 
