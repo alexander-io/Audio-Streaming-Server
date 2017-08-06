@@ -5,7 +5,7 @@ var io = require('socket.io')(server);
 var socket_stream = require('socket.io-stream');
 
 // var filename = __dirname + '/penningen.mp3' ;
-var filename = __dirname + '/lofi.mp3' ;
+var filename = __dirname + '/music/lofi.mp3' ;
 
 app.use(express.static(`${__dirname}/html`));
 
