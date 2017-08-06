@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.3",
+    "materialize-css": "^0.100.1",
     "socket.io": "^2.0.2",
     "socket.io-stream": "^0.9.1"
   }
