@@ -71,16 +71,16 @@
                 parts.push(chunk); // append the data to the array
                 num_data_events++
 
-                if (parts.length % 4 == 0) {
-                  console.log('meh');
-                  audio.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
-                }
+                // if (parts.length % 4 == 0) {
+                //   console.log('meh');
+                //   audio.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
+                // }
             });
 
             // finally
             stream.on('end', function () {
                 audio.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
-                // audio.play(); // auto play stream
+                audio.play(); // auto play stream
             });
         });
     });
