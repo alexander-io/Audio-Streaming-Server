@@ -4,17 +4,26 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var socket_stream = require('socket.io-stream');
 
-// const {exec} = require('child_process')
+
+const {exec} = require('child_process')
+let date = new Date()
+// define conversion functions
+const hr_to_sec = (hr) => hr*60*60
+const min_to_sec = (min) => min*60
+
+const server_start_time_seconds = hr_to_sec(date.getHours()) + min_to_sec(date.getMinutes()) + date.getSeconds()
+console.log('server start time \t\t:', date.toLocaleTimeString() + '\nserver start time seconds \t:', server_start_time_seconds);
 
 /*
- * https://stackoverflow.com/questions/21491091/splitting-an-audio-mp3-file
- * this is a resource for splitting up mp3 files, ffmpeg comes packaged nicely as an npm module
+ * define a function to return the start time of a particular stream
+ * this is meant to be called on 'connection' event for each connected client
  *
- * ffmpeg -i long.mp3 -acodec copy -ss 00:00:00 -t 00:30:00 half1.mp3
+ * the time that is returned is in seconds
  */
-
-// exec('ffmpeg -i ./music/lofi.mp3 -acodec copy -ss 00:15:00')
-
+let stream_start_time = function() {
+  let d = new Date()
+  return hr_to_sec(d.getHours()) + min_to_sec(d.getMinutes()) + d.getSeconds()
+}
 
 
 // var filename = __dirname + '/penningen.mp3' ;
@@ -52,15 +61,15 @@ app.get('/fonts/roboto/Roboto-Regular.woff', function(req, res) {
  *
  */
 io.on('connection', function (socket) {
-
-  console.log('socket connection established with client');
+  let stream_start_seconds = stream_start_time()
+  console.log('\n\tclient connect\n\tstart time :', stream_start_seconds);
 
   // emit start event to client
   socket.emit('start', { hello: 'world' });
 
   // listen for stream event from client, this indicates that the client is ready to start receiving data
   socket.on('stream', function (data) {
-    console.log('data :', data); // log the data that's sent from the client when emitting the 'stream' event
+    console.log('\tstream evnt data from client :', data); // log the data that's sent from the client when emitting the 'stream' event
 
     // create socket.io-stream
     var stream = socket_stream.createStream();
