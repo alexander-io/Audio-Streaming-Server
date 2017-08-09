@@ -8,17 +8,63 @@
     <script src="/js/socket.io-stream.js"></script>
     <link rel="stylesheet" href="materialize.min.css">
     <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave+Display" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
 </head>
 
 <body>
-    <h1 id="header" style="text-align :center;">lofi stream</h1>
+    <h1 id="header" style="text-align :center;">lo-fi stream</h1>
 
+    <div class="container">
+      <h5 style="font-family: 'Nova Mono', monospace;">Low fidelity or <lime style="color:lime;">lo fi </lime>(adjectival form "low-fidelity" or "lo-fi") is a type of sound recording which contains technical flaws that make the recording sound different compared with the live sound being recorded, such as distortion, hum, background noise, or limited frequency response. The term "low-fidelity" is used in contrast to the audiophile term high fidelity or "hi-fi", which refers to equipment that very accurately reproduces music without harmonic distortion or unwanted frequency emphasis or resonance. The ideas of lo-fi are taken to extremes by the genre or "scene" of no fidelity, or "no-fi". Some lower-budget recordings from the 1970s and 1980s have an unintended "lo-fi" sound because of the limitations of the analog recording and processing techniques of the time, which introduced unwanted artifacts such as distortion, hum and phase problems. In some recordings, however, high fidelity recording is purposely avoided, or the artifacts such as simulated vinyl record crackles are deliberately retained or added in for aesthetic or historical reasons.</h5>
+
+    </div>
     <div class="" id="outer">
       <div class="" id="inner">
-        <audio id="audio" controls>
+      <br><br>
+        <div id="loader"class="preloader-wrapper big active">
+          <div class="spinner-layer ">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+
+
+        <ul id="stagger-list">
+          <li class="reveal-list" style="color:lime;"><h4>song 00</h4></li>
+          <li class="reveal-list"><h4>song 01</h4></li>
+          <li class="reveal-list"><h4>song 02</h4></li>
+          <li class="reveal-list"><h4>song 03 </h4></li>
+          <li class="reveal-list"><h4>song 04</h4></li>
+          <li class="reveal-list"><h4>song 05</h4></li>
+          <li class="reveal-list"><h4>song 06 </h4></li>
+          <li class="reveal-list"><h4>song 07</h4></li>
+          <li class="reveal-list"><h4>song 08</h4></li>
+          <li class="reveal-list"><h4>song 09 </h4></li>
+        </ul>
+
+        <style type="text/css">
+        .reveal-list{
+          opacity: 0;
+        }
+
+        </style>
+
+        <!-- <audio id="audio" controls="controls">
+          <source src="" type="audio/mpeg" />
+        </audio> -->
+
+        <audio id="audio" >
           <source src="" type="audio/mpeg">
             Your browser does not support the audio element.
           </audio>
+
+
+
       </div>
     </div>
 
@@ -32,6 +78,9 @@
     #inner{
       display:table;
       margin : 0 auto;
+    }
+    .spinner-layer {
+      border-color: lime;
     }
 
     </style>
@@ -62,6 +111,8 @@
 
             let num_data_events = 0
 
+            let not_playing = true
+            let audio_not_avail = true
             /* a data event is emitted for each chunk of data that's sent by the server
              *
              *
@@ -69,11 +120,19 @@
             stream.on('data', (chunk) => {
                 console.log(chunk); // log the data
                 parts.push(chunk); // append the data to the array
-                num_data_events++
+                // num_data_events++
+                // audio.play()
+                
 
-                // if (parts.length % 4 == 0) {
-                //   console.log('meh');
-                //   audio.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
+
+                // if (parts.length % 16 == 0 && audio_not_avail) {
+                  // audio_not_avail = !audio_not_avail
+                  // console.log('meh');
+                  // audio.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
+                  
+                  // if (not_playing) {
+                  //   not_playing = !not_playing
+                  // }
                 // }
             });
 
@@ -81,6 +140,12 @@
             stream.on('end', function () {
                 audio.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
                 audio.play(); // auto play stream
+                let loader = document.getElementById('loader')
+
+                loader.classList.remove('active')
+
+                Materialize.showStaggeredList('#stagger-list')
+
             });
         });
     });

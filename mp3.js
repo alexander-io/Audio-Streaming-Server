@@ -69,6 +69,9 @@ let format_seconds = function(seconds) {
  *
  */
 let split_audio = function(start_time_in_seconds) {
+	if (fs.existsSync(__dirname + '/music/lofi_split.mp3')) {
+    	fs.unlink(__dirname + '/music/lofi_split.mp3', console.log('unlinked lofi_split.mp3'))		
+	}
 	let formatted_seconds = format_seconds(start_time_in_seconds)
 	console.log('formatted seconds :', formatted_seconds)
   execSync('ffmpeg -i '+__dirname +'/music/lofii.mp3 -acodec copy -ss ' + formatted_seconds + ' -t 01:00:00 '+__dirname +'/music/lofi_split.mp3')
@@ -81,7 +84,7 @@ var filename = __dirname + '/music/lofii.mp3' ;
 
 app.use(express.static(`${__dirname}/html`));
 
-server.listen(8000);
+server.listen(3000);
 
 // send the index that contains the <audio> element
 app.get('/', function (req, res) {
@@ -156,7 +159,10 @@ io.on('connection', function (socket) {
     fs.createReadStream(filename).pipe(stream);
     stream.on('finish', function() {
     	console.log('stream finished	')
-    	fs.unlink(__dirname + '/music/lofi_split.mp3', console.log('finish'))
+    	fs.unlink(__dirname + '/music/lofi_split.mp3', console.log('unlinked lofi_split.mp3'))
+
+
+
     })
   });
 
