@@ -58,7 +58,7 @@
           <source src="" type="audio/mpeg" />
         </audio> -->
 
-        <audio id="audio" >
+        <audio id="audio" autoplay="autoplay">
           <source src="" type="audio/mpeg">
             Your browser does not support the audio element.
           </audio>
@@ -130,11 +130,12 @@
 
                 if (parts.length % 4 == 0) {
                   console.log('data tick')
+		  //audio.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts))
                 }
                 // if (parts.length % 16 == 0 && audio_not_avail) {
                   // audio_not_avail = !audio_not_avail
                   // console.log('meh');
-                  // audio.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
+                  audio.src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
                   
                   // if (not_playing) {
                   //   not_playing = !not_playing

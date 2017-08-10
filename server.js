@@ -76,13 +76,13 @@ let split_audio = function(start_time_in_seconds) {
 	}
 	let formatted_seconds = format_seconds(start_time_in_seconds)
 	console.log('formatted seconds :', formatted_seconds)
-  execSync('ffmpeg -i '+__dirname +'/music/lofi.mp3 -acodec copy -ss ' + formatted_seconds + ' -t 01:00:00 '+__dirname +'/music/lofi_split.mp3')
+  execSync('ffmpeg -i '+__dirname +'/music/comp_lofi_32.mp3 -acodec copy -ss ' + formatted_seconds + ' -t 01:00:00 '+__dirname +'/music/lofi_split.mp3')
 
 }
 
 
 // var filename = __dirname + '/penningen.mp3' ;
-var filename = __dirname + '/music/lofii.mp3' ;
+//var filename = __dirname + '/music/__lofii.mp3' ;
 
 app.use(express.static(`${__dirname}/html`));
 
