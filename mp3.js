@@ -4,6 +4,8 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var socket_stream = require('socket.io-stream');
 
+const port = 8080
+
 
 const {execSync} = require('child_process')
 let date = new Date()
@@ -84,7 +86,7 @@ var filename = __dirname + '/music/lofii.mp3' ;
 
 app.use(express.static(`${__dirname}/html`));
 
-server.listen(3000);
+server.listen(port);
 
 // send the index that contains the <audio> element
 app.get('/', function (req, res) {
