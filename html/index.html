@@ -88,10 +88,10 @@
 
 
     <script>
-    // var socket = io('http://localhost:' + window.location.port);
+    var socket = io('http://localhost:' + window.location.port);
     // var socket = io('http://35.164.83.230')
     // var socket = io('http://hack.eco/')
-    var socket = io('http://52.43.65.13')
+    // var socket = io('http://52.43.65.13')
     var audio = document.getElementById('audio');
 
 
@@ -127,7 +127,9 @@
                 // audio.play()
                 
 
-
+                if (parts.length % 4 == 0) {
+                  console.log('data tick')
+                }
                 // if (parts.length % 16 == 0 && audio_not_avail) {
                   // audio_not_avail = !audio_not_avail
                   // console.log('meh');

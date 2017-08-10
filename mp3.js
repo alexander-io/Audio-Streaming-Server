@@ -82,7 +82,7 @@ let split_audio = function(start_time_in_seconds) {
 
 
 // var filename = __dirname + '/penningen.mp3' ;
-var filename = __dirname + '/music/lofii.mp3' ;
+var filename = __dirname + '/music/lofi.mp3' ;
 
 app.use(express.static(`${__dirname}/html`));
 
